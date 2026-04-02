@@ -10,7 +10,7 @@ private:
     int number_of_working_hours;
 
 public:
-    TA(char*);
+    TA(int, char*, char*, int, char*, int);
     ~TA()=default;
     char* getClassification() const;
 
