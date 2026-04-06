@@ -1,6 +1,6 @@
 CC = g++
 
-TARGET = question1.out
+TARGET = question2.out
 
 BUILD_FOLDER = build
 
