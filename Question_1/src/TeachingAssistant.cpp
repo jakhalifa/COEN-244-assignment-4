@@ -9,3 +9,6 @@ TA::TA(int addStudent_Id, char *addFirst_Name, char *addLast_Name, int addHire_Y
     Classification = strdup(addClassification);
 }
 
+char* TA::getClassification() const {
+    return Classification;
+}
