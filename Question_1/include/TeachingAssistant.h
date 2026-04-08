@@ -11,7 +11,7 @@ private:
 
 public:
     TA(int, char*, char*, int, char*, int);
-    ~TA() = default;
+    ~TA();
     char* getClassification() const;
 
 };
