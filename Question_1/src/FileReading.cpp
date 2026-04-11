@@ -59,7 +59,40 @@
         if(list_of_TAs.size()>=100){
             std::cout << "max size of TAs reached";
             return;
-        }
+        } 
+        bool loop_uphold(true);
+        int temp_switch(1);
+
+        while(loop_uphold){
+            std::string temp_First_Name, temp_Last_Name, Classification;
+            int temp_ID, temp_Hire_Year, temp_number_of_working_hours;
+
+            switch (temp_switch)
+            {
+                case 1:
+                    std::cout << "Please input the student ID";
+                    std::cin >> temp_ID;
+
+                    //check if ID already in use
+                    if(std::cin.fail()){
+                        std::cout << "Invalid input";
+                        std::cin.clear()
+                    } else if(std::find(TA_IDs.begin(), TA_IDs.end(), temp_ID) != TA_IDs.end()){
+                        char check_loop;
+                        std::cout << "student ID already in use, please input 'y' to continue loop";
+                        std::cin >> check_loop;
+                        if(check_loop!='y')
+                            loop_uphold = false;
+                        continue;
+                    }   
+                    break;
+            
+                default:
+                    
+                    break;
+            }
+            
+       }
         
     }   
 
