@@ -1,5 +1,6 @@
 #pragma once
 #include <fstream>
+#include <iostream>
 #include <TeachingAssistant.h>
 
 class TA_list {
@@ -9,11 +10,10 @@ private:
 
 public:
     TA_list();
-    TA_list(char*);
+    TA_list(std::string);
     ~TA_list();
-    void populate_list(char*);
+    void populate_list();
     void AddNewTa();
     void clean();
     
-
 };
