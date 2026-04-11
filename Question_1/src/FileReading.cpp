@@ -76,7 +76,9 @@
                     //check if ID already in use
                     if(std::cin.fail()){
                         std::cout << "Invalid input";
-                        std::cin.clear()
+                        std::cin.clear();
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+                        continue;
                     } else if(std::find(TA_IDs.begin(), TA_IDs.end(), temp_ID) != TA_IDs.end()){
                         char check_loop;
                         std::cout << "student ID already in use, please input 'y' to continue loop";
