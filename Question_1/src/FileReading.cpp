@@ -20,8 +20,15 @@
 
                 populate_list();
                 std::cout << "file opened succesfully and TA list populated";
+
             } else if(check=='n'){
-                
+                std::cout << "Please input the name of your TA file";
+                std::cin >> file_name;
+                std::ofstream temp(file_name);
+                temp << "0" << std::endl;
+                temp.close();
+                TA_file.open(file_name, std::ios::in | std::ios::out);
+
             } else {
                 std::cout << "Invalid input, please input 'y' to continue loop";
                 std::cin >> check;
@@ -34,12 +41,13 @@
         }
     }
 
-    TA_list::TA_list(std::string){
-        populate_list()
+    TA_list::TA_list(std::string &file_name){
+        TA_file.open(file_name, std::ios::in | std::ios::out);
+        populate_list();
     }
 
     TA_list::~TA_list(){
-
+        TA_file.close();
     }
 
     void TA_list::populate_list(){
@@ -47,11 +55,13 @@
     }
 
     void TA_list::AddNewTa(){
-
+        if(list_of_TAs.size()>=100){
+            std::cout << "max size of TAs reached";
+            return;
+        }
+        
     }   
 
     void TA_list::clean(){
-        if(){
-
-        }
+        list_of_TAs.clear();
     }
