@@ -51,7 +51,8 @@
     }
 
     void TA_list::populate_list(){
-
+        int TA_count;
+        TA_file >> TA_count;
     }
 
     void TA_list::AddNewTa(){
