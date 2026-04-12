@@ -7,39 +7,27 @@
 
 using namespace std;
 
-/* void testTensorType()
+void testTensorType()
 {
     RankOneTensorType<string> tensor(2);
     tensor[0] = "Hello";
     tensor[1] = "Coen244";
-    cout << tensor;
+    cout << "Tensor: " << tensor << endl;
     RankOneTensorType<double> dtensor(2);
     dtensor[0] = 0.15;
     dtensor[1] = 0.30;
-    cout << dtensor;
+    cout << "dTensor: " << dtensor << endl;
     RankOneTensorType<double> dtensor2(2);
     dtensor2.loadData();
-    cout << dtensor2;
-    cout << dtensor + dtensor2;
-    cout << dtensor;
-} */
+    cout << "dTensor2: " << dtensor2 << endl;
+    cout << "dtensor + dtensor2: " << dtensor + dtensor2 << endl;
+    cout << "dTensor: " << dtensor << endl;
+}
 
 int main()
 {
     time_t now = time(NULL);
     srand(now);
 
-    RankOneTensorType<int> int_tensor;
-    int_tensor.set_data_size(5);
-    int_tensor.loadData();
-
-    RankOneTensorType<std::string> string_tensor;
-    string_tensor.set_data_size(5);
-    string_tensor.loadData();
-
-    for (int i = 0; i < string_tensor.get_data_size(); i++)
-        printf("%s\n", string_tensor.get_data_element(i).c_str());
-
-
-    
+    testTensorType();
 }
