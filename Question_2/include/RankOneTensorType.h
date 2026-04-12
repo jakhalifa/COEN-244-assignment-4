@@ -7,7 +7,7 @@
 #include "BaseTensor.h"
 
 template<typename T>
-class RankOneTensorType : public BaseTensor 
+class RankOneTensorType : public BaseTensor
 {
     private:
         std::vector<T> data;
@@ -21,7 +21,7 @@ class RankOneTensorType : public BaseTensor
         T get_data_element(int index) const;
         void loadData() override;
 
-        RankOneTensorType<T>& operator++();  
+        RankOneTensorType<T>& operator++();
         RankOneTensorType<T> operator+(const RankOneTensorType<T>& other) const;
         RankOneTensorType<T> operator+(const T& scalar) const;
         RankOneTensorType<T>& operator=(const RankOneTensorType<T>& other);
