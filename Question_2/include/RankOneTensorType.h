@@ -28,8 +28,8 @@ class RankOneTensorType : public BaseTensor
         T& operator[](int index);
         const T& operator[](int index) const;
 
-        friend std::ostream& operator<<(std::ostream& os, const RankOneTensorType<T> tensor_out);
-        friend std::istream& operator>>(std::istream& is, const RankOneTensorType<T> tensor_in);
+        friend std::ostream& operator<<(std::ostream& os, const RankOneTensorType<T>& tensor_out);
+        friend std::istream& operator>>(std::istream& is, RankOneTensorType<T>& tensor_in);
 };
 
 template class RankOneTensorType<double>;
