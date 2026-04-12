@@ -170,19 +170,3 @@ T& RankOneTensorType<T>::operator[](int index)
 
     return data[index];
 }
-
-template<typename T>
-std::ostream& operator<<(std::ostream& os, const RankOneTensorType<T>& tensor_out)
-{
-    for(const auto& val : tensor_out.data)
-        os << val << " ";
-    return os;
-}
-
-template<typename T>
-std::istream& operator>>(std::istream& is, RankOneTensorType<T>& tensor_in)
-{
-    for(auto& val : tensor_in.data)
-        is >> val;
-    return is;
-}
