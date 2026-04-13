@@ -2,15 +2,13 @@
 
 TA_list::TA_list(){
     bool loop_uphold(true);
-    char check;
-    std::string file_name;
+
 
     while (loop_uphold){
-        std::cout << "Is there already a TA file? (y/n)";
-        std::cin >> check;
-        if(check=='y'){
-            std::cout << "Please input the name of the TA file";
-            std::cin >> file_name;
+        std::string check = getValidString("Is there already a TA file? (y/n)");
+
+        if(check=="y"){
+            std::string file_name = getValidString("Please input the name of your TA file: ");
 
             if(std::cin.fail()){
                 std::cin.clear();
@@ -21,29 +19,21 @@ TA_list::TA_list(){
             std::ifstream inFile(file_name);
 
             if(!inFile){
-                std::cout << "TA file not found, try again";
-                continue;
+                    std::cout << "TA file not found, try again";
+                    continue;
             }
             inFile.close();
             TA_file_string = file_name;
             populate_list();
             std::cout << "file opened succesfully and TA list populated";
 
-        } else if(check=='n'){
-            std::cout << "Please input the name of your TA file";
-            std::cin >> file_name;
+        } else if(check=="n"){
+            std::string file_name = getValidString("Please input the name of your TA file: ");
             std::ofstream temp(file_name);
             temp << "0" << std::endl;
             temp.close();
             TA_file_string = file_name;
             std::cout << "file " << TA_file_string << " successfully created" << std::endl;
-
-        } else {
-            std::cout << "Invalid input, please input 'y' to continue loop";
-            std::cin >> check;
-            if(check=='y')
-                continue;
-            break;
         }
     }
 }
@@ -71,7 +61,7 @@ void TA_list::loadFromFile(){
     std::string temp_first_name, temp_last_name, temp_Classification;
 
     while(inFile >> temp_id >> temp_first_name >> temp_last_name >> temp_Hire_Year >> temp_Classification >> temp_number_of_working_hours){
-        if(temp_Classification=="Alum")
+        if(temp_Classification!="Alum")
             list_of_TAs.emplace_back(temp_id, temp_first_name, temp_last_name, temp_Hire_Year, temp_Classification, temp_number_of_working_hours);
     }
 }
