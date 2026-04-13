@@ -9,7 +9,7 @@
 class TA_list {
 private:
     std::vector<TA> list_of_TAs;
-    std::string TA_file;
+    std::string TA_file_string;
     int TA_count;
 
 public:

@@ -24,7 +24,8 @@ TA_list::TA_list(){
                 std::cout << "TA file not found, try again";
                 continue;
             }
-
+            inFile.close();
+            TA_file_string = file_name;
             populate_list();
             std::cout << "file opened succesfully and TA list populated";
 
@@ -34,8 +35,8 @@ TA_list::TA_list(){
             std::ofstream temp(file_name);
             temp << "0" << std::endl;
             temp.close();
-            TA_file = file_name;
-            std::cout << "file " << TA_file << " successfully created" << std::endl;
+            TA_file_string = file_name;
+            std::cout << "file " << TA_file_string << " successfully created" << std::endl;
 
         } else {
             std::cout << "Invalid input, please input 'y' to continue loop";
@@ -48,7 +49,7 @@ TA_list::TA_list(){
 }
 
 TA_list::TA_list(std::string &file_name){
-    TA_file = file_name;
+    TA_file_string = file_name;
     populate_list();
 }
 
@@ -61,7 +62,7 @@ void TA_list::populate_list(){
 }
 
 void TA_list::loadFromFile(){
-    std::ifstream inFile(TA_file);
+    std::ifstream inFile(TA_file_string);
     int ignore;
     inFile >> ignore;   //I don't really trust the count that's there and there's no need to
 
@@ -76,7 +77,7 @@ void TA_list::loadFromFile(){
 }
 
 void TA_list::saveToFile(){
-    std::ofstream outFile(TA_file);
+    std::ofstream outFile(TA_file_string);
     outFile << list_of_TAs.size() << "\n";
 
     for(const auto& temp_TA : list_of_TAs){
@@ -94,11 +95,17 @@ void TA_list::AddNewTa(){
     std::string temp_first_name = getValidString("Enter first name: ");
     std::string temp_last_name = getValidString("Enter last name: ");
     int temp_Hire_Year = getValidInt("Enter hire year: ");
-    std::string temp_Classification = getValidString("Enter classification ");
+    std::string temp_Classification;
+    while(true){
+        std::string temp_str = getValidString("Enter classification ");
+        if(temp_str!="Grad")
+            continue;
+        temp_Classification = temp_str;
+        break;
+    }
     int temp_number_of_working_hours = getValidInt("Enter number of working hours: ");
 
     list_of_TAs.emplace_back(temp_id, temp_first_name, temp_last_name, temp_Hire_Year, temp_Classification, temp_number_of_working_hours);
-    std::ofstream outFile(TA_file);
     saveToFile();
     
 }   
@@ -139,6 +146,9 @@ int getValidInt(const std::string& prompt){
             std::cout << "Please enter a valid integer\n";
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            continue;
+        } else if(value<0){
+            std::cout << "negative values not accepted for this field\n";
             continue;
         }
         return value;
