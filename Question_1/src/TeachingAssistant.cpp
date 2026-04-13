@@ -10,3 +10,7 @@ TA::TA(int addStudent_Id, std::string addFirst_Name, std::string addLast_Name, i
 std::string TA::getClassification() const {
     return Classification;
 }
+
+int TA::getID() const {
+    return Student_Id;
+}

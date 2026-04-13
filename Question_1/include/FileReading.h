@@ -8,9 +8,8 @@
 
 class TA_list {
 private:
-    std::vector<TA*> list_of_TAs;
-    std::fstream TA_file;
-    std::vector<int> TA_IDs;
+    std::vector<TA> list_of_TAs;
+    std::string TA_file;
 
 public:
     TA_list();
@@ -19,5 +18,9 @@ public:
     void populate_list();
     void AddNewTa();
     void clean();
-    
+    int getUniqueID();
+
 };
+
+int getValidInt(const std::string&);
+std::string getValidString(const std::string&);
