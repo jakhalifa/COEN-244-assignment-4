@@ -82,7 +82,7 @@ void TA_list::AddNewTa()
     while (true)
     {
         std::string temp_str = getValidString("Enter classification ");
-        if (temp_str != "Grad")
+        if (temp_str != "Grad" && temp_str != "Alum" )
             continue;
         temp_Classification = temp_str;
         break;
