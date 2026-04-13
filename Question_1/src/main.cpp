@@ -1,6 +1,8 @@
+#include "../include/FileReading.h"
 #include <iostream>
 
 int main()
 {
-    std::cout << "Hello world" << std::endl;
+    std::string temp_name = getValidString("input the txt file name: ");
+    TA_list my_list(temp_name);
 }

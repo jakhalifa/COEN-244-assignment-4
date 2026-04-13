@@ -1,44 +1,6 @@
 #include "../include/FileReading.h"
 
-TA_list::TA_list(){
-    bool loop_uphold(true);
-
-
-    while (loop_uphold){
-        std::string check = getValidString("Is there already a TA file? (y/n)");
-
-        if(check=="y"){
-            std::string file_name = getValidString("Please input the name of your TA file: ");
-
-            if(std::cin.fail()){
-                std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                std::cout << "invalid input, try again\n";
-                continue;
-            }
-            std::ifstream inFile(file_name);
-
-            if(!inFile){
-                    std::cout << "TA file not found, try again";
-                    continue;
-            }
-            inFile.close();
-            TA_file_string = file_name;
-            populate_list();
-            std::cout << "file opened succesfully and TA list populated";
-
-        } else if(check=="n"){
-            std::string file_name = getValidString("Please input the name of your TA file: ");
-            std::ofstream temp(file_name);
-            temp << "0" << std::endl;
-            temp.close();
-            TA_file_string = file_name;
-            std::cout << "file " << TA_file_string << " successfully created" << std::endl;
-        }
-    }
-}
-
-TA_list::TA_list(std::string &file_name){
+TA_list::TA_list(const std::string& file_name){
     TA_file_string = file_name;
     populate_list();
 }
@@ -53,8 +15,26 @@ void TA_list::populate_list(){
 
 void TA_list::loadFromFile(){
     std::ifstream inFile(TA_file_string);
-    int ignore;
-    inFile >> ignore;   //I don't really trust the count that's there and there's no need to
+
+    if(!inFile){
+        list_of_TAs.clear();
+        return;
+    }
+
+    int file_TA_count;
+    inFile >> file_TA_count;
+    if(file_TA_count > 100){
+        std::cout << "limit exceeded, only registering first 100 TAs";
+        list_of_TAs.clear();
+        int temp_id, temp_Hire_Year, temp_number_of_working_hours;
+        std::string temp_first_name, temp_last_name, temp_Classification;
+        for(int i = 0; i < 100; i++){
+            inFile >> temp_id >> temp_first_name >> temp_last_name >> temp_Hire_Year >> temp_Classification >> temp_number_of_working_hours;
+            if(temp_Classification!="Alum")
+               list_of_TAs.emplace_back(temp_id, temp_first_name, temp_last_name, temp_Hire_Year, temp_Classification, temp_number_of_working_hours);
+        }
+        return;
+    }
 
     list_of_TAs.clear();
     int temp_id, temp_Hire_Year, temp_number_of_working_hours;
@@ -64,15 +44,16 @@ void TA_list::loadFromFile(){
         if(temp_Classification!="Alum")
             list_of_TAs.emplace_back(temp_id, temp_first_name, temp_last_name, temp_Hire_Year, temp_Classification, temp_number_of_working_hours);
     }
+    return;
 }
 
 void TA_list::saveToFile(){
-    std::ofstream outFile(TA_file_string);
-    outFile << list_of_TAs.size() << "\n";
+        std::ofstream outFile(TA_file_string);
+        outFile << list_of_TAs.size() << "\n";
 
-    for(const auto& temp_TA : list_of_TAs){
-        outFile << temp_TA.getall();
-    }
+        for(const auto& temp_TA : list_of_TAs){
+            outFile << temp_TA.getall();
+        }
 }
 
 void TA_list::AddNewTa(){
@@ -111,7 +92,7 @@ int TA_list::getUniqueID(){
         bool duplicate = false;
         id = getValidInt("Enter student ID: ");
 
-        for(auto& check : list_of_TAs){
+        for(const auto& check : list_of_TAs){
             if(check.getID()==id){
                 std::cout << "ID already in use, please try again\n";
                 duplicate = true;
