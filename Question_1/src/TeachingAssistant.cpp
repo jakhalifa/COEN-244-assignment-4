@@ -14,3 +14,7 @@ std::string TA::getClassification() const {
 int TA::getID() const {
     return Student_Id;
 }
+
+std::string TA::getall() const {
+    return std::to_string(Student_Id) + " " + First_Name + " " + Last_Name + " " + std::to_string(Hire_Year) + " " + Classification + " " + std::to_string(number_of_working_hours) + "\n";
+}

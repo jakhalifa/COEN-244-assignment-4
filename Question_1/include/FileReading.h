@@ -10,12 +10,15 @@ class TA_list {
 private:
     std::vector<TA> list_of_TAs;
     std::string TA_file;
+    int TA_count;
 
 public:
     TA_list();
     TA_list(std::string &);
     ~TA_list();
     void populate_list();
+    void loadFromFile();
+    void saveToFile();
     void AddNewTa();
     void clean();
     int getUniqueID();

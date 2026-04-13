@@ -56,11 +56,32 @@ TA_list::~TA_list(){
 }
 
 void TA_list::populate_list(){
-    int TA_count;
+    loadFromFile();
+    saveToFile();
+}
+
+void TA_list::loadFromFile(){
     std::ifstream inFile(TA_file);
-    inFile >> TA_count;
+    int ignore;
+    inFile >> ignore;   //I don't really trust the count that's there and there's no need to
 
+    list_of_TAs.clear();
+    int temp_id, temp_Hire_Year, temp_number_of_working_hours;
+    std::string temp_first_name, temp_last_name, temp_Classification;
 
+    while(inFile >> temp_id >> temp_first_name >> temp_last_name >> temp_Hire_Year >> temp_Classification >> temp_number_of_working_hours){
+        if(temp_Classification=="Alum")
+            list_of_TAs.emplace_back(temp_id, temp_first_name, temp_last_name, temp_Hire_Year, temp_Classification, temp_number_of_working_hours);
+    }
+}
+
+void TA_list::saveToFile(){
+    std::ofstream outFile(TA_file);
+    outFile << list_of_TAs.size() << "\n";
+
+    for(const auto& temp_TA : list_of_TAs){
+        outFile << temp_TA.getall();
+    }
 }
 
 void TA_list::AddNewTa(){
@@ -73,12 +94,13 @@ void TA_list::AddNewTa(){
     std::string temp_first_name = getValidString("Enter first name: ");
     std::string temp_last_name = getValidString("Enter last name: ");
     int temp_Hire_Year = getValidInt("Enter hire year: ");
-    std::string temp_Classification = getValidString("Enter calssification ");
+    std::string temp_Classification = getValidString("Enter classification ");
     int temp_number_of_working_hours = getValidInt("Enter number of working hours: ");
 
-    TA temp_TA(temp_id, temp_first_name, temp_last_name, temp_Hire_Year, temp_Classification, temp_number_of_working_hours);
-    list_of_TAs.push_back(temp_TA);
-
+    list_of_TAs.emplace_back(temp_id, temp_first_name, temp_last_name, temp_Hire_Year, temp_Classification, temp_number_of_working_hours);
+    std::ofstream outFile(TA_file);
+    saveToFile();
+    
 }   
 
 void TA_list::clean(){

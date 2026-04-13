@@ -16,5 +16,6 @@ public:
     ~TA() = default;
     std::string getClassification() const;
     int getID() const;
+    std::string getall() const;
 
 };
